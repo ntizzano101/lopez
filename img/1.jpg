@@ -1,0 +1,10 @@
+php-barcode needs an external programm for encodings other then EAN/ISBN<BR>
+<ul>
+<li>download gnu-barcode from <a href="http://www.gnu.org/software/barcode/">www.gnu.org/software/barcode/</a></li>
+<li>compile and install them</li>
+<li>download genbarcode from <a href="http://www.ashberg.de/php-barcode/">www.ashberg.de/php-barcode/</a></li>
+<li>compile and install them</li>
+<li>specify path to genbarcode in php-barcode.php</li>
+</ul>
+<br />
+<a href="http://www.ashberg.de/php-barcode/">Folke Ashberg's OpenSource PHP-Barcode</a><br />

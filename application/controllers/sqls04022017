@@ -1,0 +1,4 @@
+ALTER TABLE `alumnos_cc` CHANGE `interes` `capital` DECIMAL(20,2) NOT NULL DEFAULT '0.00';
+ALTER TABLE `alumnos_cc` DROP `descuento;
+ALTER TABLE `alumnos_cc` CHANGE `importe` `pendiente` DECIMAL(20,2) NOT NULL DEFAULT '0.00';
+ALTER TABLE `alumnos_cc` ADD `fecha_saldo` DATE NOT NULL AFTER `pendiente`;
