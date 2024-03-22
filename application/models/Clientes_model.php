@@ -18,11 +18,11 @@ class Clientes_model extends CI_Model {
 			$consaldo="";
 			if($p1<>'')
 				$consaldo=" HAVING SUM(tot) < 0 ";
-			$sql="select T1.nombre,T1.id,SUM(tot) as tot from(
-select clie.nombre,clie.id,sum(pedido.totalv * -1) as tot from clie left join pedido on clie.id=pedido.idc group by  clie.nombre,clie.id
+			$sql="select T1.nombre,T1.id,T1.baja,SUM(tot) as tot from(
+select clie.nombre,clie.id,clie.baja,sum(pedido.totalv * -1) as tot from clie left join pedido on clie.id=pedido.idc group by  clie.nombre,clie.id,clie.baja
 UNION
-select clie.nombre,clie.id,sum(cc_pago.monto) from clie left join cc_pago on clie.id=cc_pago.idcp and cc_pago.tipo='C' group by  clie.nombre,clie.id )
-as  T1 where T1.nombre like ?  group by T1.nombre,T1.id ".$consaldo;	
+select clie.nombre,clie.id,clie.baja,sum(cc_pago.monto) from clie left join cc_pago on clie.id=cc_pago.idcp and cc_pago.tipo='C' group by  clie.nombre,clie.id )
+as  T1 where T1.nombre like ? and T1.baja=1  group by T1.nombre,T1.baja,T1.id ".$consaldo;	
 		    $query = $this->db->query($sql,array($p.'%'));
 			// echo $this->db->queries[0];die;
 		   return $query->result();	
@@ -71,13 +71,18 @@ as  T1 where T1.nombre like ?  group by T1.nombre,T1.id ".$consaldo;
         }
          public function delete($p)
         {
-				$this->db->where('id', $p);
-				$this->db->delete("clie");
+				//$this->db->where('id', $p);
+				//$this->db->delete("clie");
+                 $sql="update clie set baja=10 where id=?";
+                 $query = $this->db->query($sql,$p);
+                 var_dump($query);
+                 die;
+                 $d=$query->result();
         }
             public function cmbClientes($p)
         {
 		    
-		   $sql="select * from clie where nombre like ? Order by nombre";
+		   $sql="select * from clie where nombre like ? and baja=1 Order by nombre";
 		   $query = $this->db->query($sql,array($p));
 		  // echo $this->db->queries[0];die;
 		   $rta=$query->result_array();

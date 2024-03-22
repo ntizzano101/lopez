@@ -114,7 +114,29 @@
 					<?php 
 					$aux="";
 					$total="0";
+                    //muestro solo los ultiumos 15 movimientos 
+                    //del resto el saldo
+                    $cuantos=count($cc)-15;                 
+                    $cuento=0;
+                    $saldo_antes=0;
 					foreach($cc as $c){ 
+                            $cuento++;
+                            if($cuento < $cuantos){
+                              //acumulo , no muestro.
+                                $saldo_antes=$saldo_antes + $c->haber    - $c->debe;
+                                //die("dale m mas  ".$cuantos . "cuento ". $cuento);     
+                            }
+                            else{
+                            //Si hubo saldo anterior muestro...
+                            if($saldo_antes<>0){
+                                ?>
+                                <tr>
+                                    <td colspan="5"><strong> SALDO ANTERIOR <strong></td>
+                                    <td  align="right"><? echo  $fx->moneda($saldo_antes); $total=$total + $saldo_antes;$saldo_antes=0; ?> </td>
+                                    <td></td>
+                                </tr>
+                                <?
+                            }        
 							if ($c->haber>0) {
 									?>
 									<tr id="tr<?=$c->id?>">
@@ -155,7 +177,7 @@
 						<?php	
 						
 						}
-									
+					}				
 							
 											
 				

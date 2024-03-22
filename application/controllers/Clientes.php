@@ -105,12 +105,14 @@ public function eliminar($p='')
 			$rta1=$this->clientes_model->eliminar($p);
 			$prove=$rta1["clie"];
 			$pedido=$rta1["pedido"];
-			$pago=$rta1["cc_pago"];
-			if(count($prove) > 0){
+			$pago=$rta1["cc_pago"];			
+            
+            if(count($prove) > 0){
 				//Existe el cliente OK
 				$rta["ok"]="1";	
 				$rta["cliente"]=$prove[0]->nombre;	
 			}
+            /*
 			if(count($pedido) > 0){
 				//no puede borrar tiene pedidos
 				$rta["ok"]="0";	
@@ -121,7 +123,7 @@ public function eliminar($p='')
 				$rta["ok"]="0";	
 				$rta["mensaje"]=" Hay Pagos Para Este Cliente";	
 			}	
-			
+			*/
 		}
 		else{
 				$rta["mensaje"]=" Parametros Para Borrado Incorrectos";
